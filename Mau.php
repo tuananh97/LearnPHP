@@ -109,21 +109,13 @@
          </tr>
          <tr>
             <td>
-               <table align="center" border="1px">
-         <tr>
-            <td>STT</td>
-            <td>Chọn xóa</td>
-            <td>Mã sinh viên</td>
-            <td>Họ và tên</td>
-            <td>Ngày sinh</td>
-            <td>Giới tính</td>
-         </tr>
+          
          <table align="center" border="1px">
             <tr>
                <td>STT</td>
                <td>Chọn xóa</td>
                <td>Mã sinh viên</td>
-               <td>Họ tên</td>
+               <td align="center">Họ và tên</td>
                <td>Ngày sinh</td>
                <td>Giới tính</td>
             </tr>
