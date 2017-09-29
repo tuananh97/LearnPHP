@@ -1,5 +1,9 @@
 <?php
-$str=" huỳnh tuấn Anh";
+echo "Nhap ten: ";
+$name= fgets(fopen('php://stdin','r'));
+$result = Chuanhoa($name,"ten");
+echo $result;
+
 function Chuanhoa($str,$type= NULL){
     //Chuyển về chữ thường
     $str = strtolower($str);
@@ -25,6 +29,4 @@ function Chuanhoa($str,$type= NULL){
       $result = implode(" ", $array);
       return $result;
     }
-       $result = Chuanhoa($str,"ten");
-       echo $result;
 ?>
