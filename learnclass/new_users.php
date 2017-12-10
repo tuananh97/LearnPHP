@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html> 
 <html>
 	<head>
-	<meta charset="utf-8" />
+	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<title>Demo Final Exam</title>
         <style>
             label{
@@ -27,6 +28,7 @@
         <input type="password" name="user_pass"/>
         <br>
 		<input type="submit" name="user" value="Đăng kí"/>
+		<input type="submit" name="del" value="Xóa" onClick="return confirm('Bạn có thực sự muốn xóa')"/>
 	</form>
 
 <h3><a href="new_users.php?view">Xem</a></h3>
@@ -43,9 +45,9 @@ if (mysqli_connect_errno())
 //Ham chuan hoa ten
     function Chuanhoa($str, $type = NULL)
         {
-            $str   = strtolower($str);
-            $str   = trim($str);
-            $array = explode(" ", $str);
+            $str   = mb_strtolower($str, 'UTF-8'); //Chuyển về chữ thường
+            $str   = trim($str);  //Lược bỏ khoảng trắng đầu và cuối chuỗi
+            $array = explode(" ", $str); //Lược bỏ khoảng trắng thừa giữa các từ
             foreach ($array as $key => $value)
                 {
                     if (trim($value) == null)
@@ -53,11 +55,12 @@ if (mysqli_connect_errno())
                             unset($array[$key]);
                             continue;
                         }
-                    if ($type == "ten")
+                    if ($type == "ten")  //Chuyển kí tự đầu mỗi từ thành chữ hoa
                         {
                             $array[$key] = ucfirst($value);
                         }
                 }
+				//Chuyển kí tự đầu thành chữ hoa
             $result = implode(" ", $array);
             return $result;
         }
@@ -68,11 +71,11 @@ if (mysqli_connect_errno())
             $mangten  = explode(" ", $name);
             $sophantu = count($mangten);
             $ten      = $mangten[$sophantu - 1];
-            $hodem    = " ";
-            for ($i=0;$i < $sophantu - 1; $i++)
-                {
-                    $hodem = $hodem.$mangten[$i]." ";
-                }
+            $hodem    = $mangten[$sophantu - 2];
+            //for ($i=1;$i < $sophantu - 1; $i++)
+                //{
+                   // $hodem = $hodem.$mangten[$i]." ";
+               // }
             if($a=="ten") return $ten;
 			else if($a=="hodem") return $hodem;
         }
@@ -90,50 +93,64 @@ if (mysqli_connect_errno())
 				<th>Update User:</th>
 			</tr>	
 	";
-	$sel_users = "select * from new_users order by ten,hodem ";
+	$sel_users = "select * from new_users order by ten,hodem";
 	$run_users = mysqli_query($con, $sel_users);
-	while($row=mysqli_fetch_array($run_users)){
-		$u_id = $row['user_id'];
-		$u_name = $row['user_name'];
-		$u_email = $row['user_email'];
-		$u_pass = $row['user_password'];
-	echo "
-			<tr align='center'>
+	
+	//while($row=mysqli_fetch_array($run_users)){
+		for ($i = 0; $i < mysqli_num_rows($run_users); $i++) {
+		$row[$i]=mysqli_fetch_array($run_users);	
+		//$u_id = $row['user_id'];
+		//$u_name = $row['user_name'];
+		//$u_email = $row['user_email'];
+		//$u_pass = $row['user_password'];
+		//<td><a href='new_users.php?del=$u_id'>Delete</a></td>
+		$u_id = $row[$i]['user_id'];
+		$u_name = $row[$i]['user_name'];
+		$u_email = $row[$i]['user_email'];
+		$u_pass = $row[$i]['user_password'];
+	echo "<tr align='center'>
 				<td>$u_id</td>
 				<td>$u_name</td>
 				<td>$u_email</td>
 				<td>$u_pass</td>
-				<td><a href='new_users.php?del=$u_id'>Delete</a></td>
+				<td><input type='checkbox' name='chonxoa[]' value=".$i." /></td>
 				<td><a href='new_users.php?edit=$u_id'>Edit</a></td>
-			</tr>
-	";
+			</tr>";
 	}
 	echo "</table>";
 	}
 
 //deleting a user from the table
 
-	if(isset($_GET['del'])){
+	if(isset($_GET['del'])=='Xóa'){
+
+		 if ($chonxoa != 'off') {
+		  for ($i = 0; $i < count($chonxoa); $i++) {
+                 $u_id = $row[$chonxoa[$i]]['user_id'];
+				 echo $u_id;
+                 $delete = "DELETE FROM new_users WHERE user_id='$u_id'";
+                 $run_delete = mysqli_query($con, $delete);        		
+		 }
+		 }
+		//$del_id = $_GET['del'];
 		
-		$del_id = $_GET['del'];
+		//$delete_user = "delete from new_users where user_id='$del_id'";
 		
-		$delete_user = "delete from new_users where user_id='$del_id'";
-		
-		$run_delete = mysqli_query($con, $delete_user); 
-		
+		//$run_delete = mysqli_query($con, $delete_user); 
 		if($run_delete){
-			
 			echo "<script>alert('A user has been deleted!')</script>";
 			echo "<script>window.open('new_users.php?view','_self')</script>";
-		}
+		}    
+
 	}
 
 //Inserting data into table
 
 if(isset($_POST['user'])) {
         $user_name = Chuanhoa($_POST['user_name'],'ten');
-		$ten = Tachten($user_name,"ten"); echo $ten;
-		$hodem= Tachten($user_name,"hodem");echo $hodem;
+		
+		$ten = Tachten($user_name,"ten"); 
+		$hodem= Tachten($user_name,"hodem");
         $user_email = $_POST['user_email'];
         $user_pass = $_POST['user_pass'];
 		//creating mysqli query

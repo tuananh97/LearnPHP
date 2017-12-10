@@ -23,7 +23,7 @@
              function getData1($maHV)
              {
                  global $giatri1, $ketqua;
-                 $giatri1 = "";
+                 $giatri1 = " ";
                  $query = "SELECT hoivien_giaithuong.maHV, giaithuong.tenGT,hoivien_giaithuong.ngaynhan  FROM hoivien_giaithuong RIGHT JOIN giaithuong ON hoivien_giaithuong.maGT=giaithuong.maGT WHERE hoivien_giaithuong.maHV= '$maHV'";
                  $result = mysql_query($query);
                  $numrows = mysql_num_rows($result);
@@ -43,7 +43,7 @@
              function getData2($tungay,$denngay)
              {
                  global $giatri2, $ketqua;
-                 $giatri2 = "";
+                 $giatri2 = " ";
                  $query = "SELECT hoivien_giaithuong.maHV, COUNT(hoivien_giaithuong.maGT) as sogt 
                            FROM hoivien_giaithuong 
                            WHERE ngaynhan > '$tungay' AND Ngaynhan < '$denngay' 

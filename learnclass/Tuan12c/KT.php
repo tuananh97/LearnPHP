@@ -83,7 +83,7 @@
          <h1>Quản lý giảng dạy</h1>
       </center>
       <table align="center" >
-         <tr>
+         <tr align="center">
             <td>
                <form name="form" method="POST">
                   <table>
@@ -143,7 +143,10 @@
                      </tr>
                   </table>
             </td>
-            <td>
+           
+         </tr>
+		  <tr> 
+		   <td>
             <table align="center" border="1px">
             <tr>
             <td>STT</td>
@@ -159,9 +162,24 @@
              ?>	
             </table>					
             </td> 
-
-           
-         </tr>
+		 </tr>
+		  <tr> 
+		   <td>
+            <table align="center" border="1px">
+            <tr>
+            <td>STT</td>
+            <td>Môn học</td>
+			<td>Giảng viên</td>
+			<td>Ngày bắt đầu</td>
+			<td>Chọn xóa</td>
+            <td>Chọn sửa</td>
+            </tr> 
+            <?php
+               
+             ?>	
+            </table>					
+            </td> 
+		 </tr>
       </table>
    </body>
 </html>

@@ -4,7 +4,7 @@
       <title>QUản lý giảng dạy </title>
       <?php
          //Kêt nối CSDL
-             mysql_connect("localhost", "root", "12345678") or die("Lỗi kết nối Server");
+             mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
              mysql_select_db("tuan12") or die("Lỗi kết nối Database");
 
          // Hàm lấy dữ liệu từ CSDL và hiển thị
@@ -162,9 +162,8 @@
              ?>	
             </table>					
             </td> 
-
-           
          </tr>
+		
       </table>
    </body>
 </html>
