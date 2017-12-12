@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html> 
 <html>
 	<head>
-	
+	<link rel="shortcut icon" href="//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=6cd6089ee7f6">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<title>Demo Final Exam</title>
         <style>

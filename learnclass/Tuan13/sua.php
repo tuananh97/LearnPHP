@@ -2,11 +2,8 @@
    $conn = mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
    mysql_set_charset('utf8', $conn);
    mysql_select_db("tuan13") or die("Lỗi kết nối Database");
-   
-   
    $vaitro    = $_GET['VaitroID'];
    $nguoidung = $_GET['nguoidungID'];
-   
    $query    = "SELECT * FROM nguoidungvaitro WHERE nguoidungID=$nguoidung AND VaitroID=$vaitro";
    $result   = mysql_query($query);
    $res      = mysql_fetch_array($result);
@@ -14,16 +11,12 @@
    $IDvaitro = $res['VaitroID'];
    $ngaycap  = $res['NgayCap'];
    if (isset($_POST['update'])) {
-           
            $vaitro2  = $_POST['vaitro2'];
            $ngaycap2 = $_POST['ngaycap2'];
-           
            $query2 = "UPDATE nguoidungvaitro SET VaitroID='$vaitro2',
              NgayCap='$ngaycap2' 
              WHERE nguoidungID= '$IDnguoi'";
-           
            $result2 = mysql_query($query2);
-           
            header("Location: KT.php");
    }
    ?>    
@@ -51,7 +44,7 @@
                <?php
                   while ($vaitro = mysql_fetch_array($KQ1)) {
                   ?>
-               <option value="<?php
+               <option <?php if($vaitro['vaitroID']==$IDvaitro) echo "selected=\"selected\""?> value="<?php
                   echo $vaitro['vaitroID'];
                   ?>"><?php
                   echo $vaitro['tenVaiTro'];

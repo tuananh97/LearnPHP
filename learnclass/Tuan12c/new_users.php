@@ -134,7 +134,6 @@ if (mysqli_connect_errno())
 
 if(isset($_POST['user'])) {
         $user_name = Chuanhoa($_POST['user_name'],'ten');
-		
 		$ten = Tachten($user_name,"ten"); 
 		$hodem= Tachten($user_name,"hodem");
         $user_email = $_POST['user_email'];
