@@ -17,6 +17,7 @@ else
     echo "<br><a href='suathongtin.php'>Sửa thông tin</a>";
 	echo "<br><a href='../quanly/quanlygiangday.php'>Quản lý giảng dạy</a>";
     if ($member['keya']=="1")  echo "<br><a href='admin.php'>Trang quản trị</a>";
+	if ($member['keya']=="1")  echo "<br><a href='kt.php'>Trang quản trị</a>";
     echo "<br><a href='logout.php'>Thoát ra</a>";
 } 
 ?>

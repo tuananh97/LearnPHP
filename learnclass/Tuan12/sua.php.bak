@@ -21,7 +21,7 @@ if (isset($_GET['monhocID']) && $monhoc = $_GET['monhocID']) {
     $query  = "UPDATE giangday SET monhocID='$monhoc2', giangvienID= '$giangvien2', ngaybatdau='$ngaybatdau2' WHERE monhocID=$monhoc AND giangvienID= $giangvien";
     $result = mysql_query($query);
     
-    header("Location: KT.php");
+    header("Location: quanlygiangday.php");
  }
 ?> 
 <form name="formx" method="POST">
@@ -68,7 +68,7 @@ if (isset($_GET['monhocID']) && $monhoc = $_GET['monhocID']) {
       </tr>
       <tr>
          <td width="30%">Ngày bắt đầu:</td>
-         <td><input type="date" name="ngaybatdau2" value="<?php echo $ngaybatdau ?>" /></td>
+         <td><input type="text" name="ngaybatdau2" value="<?php echo $ngaybatdau ?>" /></td>
       </tr>
       <tr align="center">
          <td colspan="2">

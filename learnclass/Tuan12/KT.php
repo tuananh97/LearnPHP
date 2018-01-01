@@ -7,7 +7,38 @@
              $conn=mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
 			 mysql_set_charset('utf8',$conn);
              mysql_select_db("tuan12") or die("Lỗi kết nối Database");
-
+      // Hàm tach ho dem
+      function Chuanhoa($str, $type = NULL)
+      {
+          $str   = mb_strtolower($str, 'UTF-8'); //Chuyển về chữ thường
+          $str   = trim($str);  //Lược bỏ khoảng trắng đầu và cuối chuỗi
+          $array = explode(" ", $str); //Lược bỏ khoảng trắng thừa giữa các từ
+          foreach ($array as $key => $value)
+          {
+              if (trim($value) == null)
+              {
+                  unset($array[$key]);
+                  continue;
+              }
+              if ($type == "ten")  //Chuyển kí tự đầu mỗi từ thành chữ hoa
+              {
+                  $array[$key] = ucfirst($value);
+              }
+          }
+          //Chuyển kí tự đầu thành chữ hoa
+          $result = implode(" ", $array);
+          return $result;
+      }
+      // Hàm tach ho dem
+      function Tachten($name,$a)
+      {
+          $mangten  = explode(" ", $name);
+          $sophantu = count($mangten);
+          $ten      = $mangten[$sophantu - 1];
+          $hodem    = $mangten[$sophantu - 2];
+          if($a=="ten") return $ten;
+          else if($a=="hodem") return $hodem;
+      }
          // Hàm lấy dữ liệu từ CSDL và hiển thị
              function getData()
              {
@@ -128,7 +159,7 @@
                      <tr>
                          
                         <td width="30%">Ngày bắt đầu:</td>
-                        <td><input type="text" name="ngaybatdau" /></td>
+                        <td><input type="date" name="ngaybatdau" /></td>
                      
                      </tr>
                      <tr align="center">
