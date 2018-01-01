@@ -1,5 +1,8 @@
 <?php
- require_once("../auth/config.php");
+  $conn=mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
+			 mysql_set_charset('utf8',$conn);
+             mysql_select_db("tuan12") or die("Lỗi kết nối Database");
+
  if (isset($_GET['monhocID']) && $monhoc = $_GET['monhocID']) {
     if (isset($_GET['giangvienID']) && $giangvien = $_GET['giangvienID']) {
        $query       = "SELECT* FROM giangday WHERE monhocID=$monhoc AND giangvienID= $giangvien";

@@ -7,41 +7,38 @@
     $conn=mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
     mysql_select_db("hoivien2") or die("Lỗi kết nối Database");
 	mysql_set_charset("UTF8", $conn);
-    //Ham chuan hoa ten
+    // Hàm tach ho dem        
     function Chuanhoa($str, $type = NULL)
-        {
-            $str   = strtolower($str);
-            $str   = trim($str);
-            $array = explode(" ", $str);
-            foreach ($array as $key => $value)
-                {
-                    if (trim($value) == null)
-                        {
-                            unset($array[$key]);
-                            continue;
-                        }
-                    if ($type == "ten")
-                        {
-                            $array[$key] = ucfirst($value);
-                        }
-                }
-            $result = implode(" ", $array);
-            return $result;
-        }
-    
-    // Hàm tach ho dem    
-    function Tachten($name)
-        {
-            $mangten  = explode(" ", $name);
-            $sophantu = count($mangten);
-            $ten      = $mangten[$sophantu - 1];
-            $hodem    = " ";
-            for ($i = 1; $i < $sophantu - 1; $i++)
-                {
-                    $hodem = $mangten[i] . " ";
-                }
-            return $ten;
-        }
+    {
+        $str   = mb_strtolower($str, 'UTF-8'); //Chuyển về chữ thường
+        $str   = trim($str);  //Lược bỏ khoảng trắng đầu và cuối chuỗi
+        $array = explode(" ", $str); //Lược bỏ khoảng trắng thừa giữa các từ
+        foreach ($array as $key => $value)
+            {
+                if (trim($value) == null)
+                    {
+                        unset($array[$key]);
+                        continue;
+                    }
+                if ($type == "ten")  //Chuyển kí tự đầu mỗi từ thành chữ hoa
+                    {
+                        $array[$key] = ucfirst($value);
+                    }
+            }
+            //Chuyển kí tự đầu thành chữ hoa
+        $result = implode(" ", $array);
+        return $result;
+    }
+// Hàm tach ho dem    
+function Tachten($name,$a)
+{  
+$mangten  = explode(" ", $name);
+$sophantu = count($mangten);
+$ten      = $mangten[$sophantu - 1];
+$hodem    = $mangten[$sophantu - 2];
+if($a=="ten") return $ten;
+else if($a=="hodem") return $hodem;
+}
     
     
     // Hàm lấy dữ liệu từ CSDL và hiển thị

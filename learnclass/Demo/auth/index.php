@@ -2,11 +2,11 @@
 
 session_start();
 header('Content-Type: text/html; charset=UTF-8');
-echo '<title>Dang ki/Dang Nhap</title>';
+echo '<title>Trang chủ</title>';
 require_once("config.php"); 
 if ( !$_SESSION['user_id'])
 { 
-    echo "Bạn chưa đăng nhập! <a href='login.php'>Nhấp vào đây để đăng nhập</a> hoặc <a href='register.php'>Nhấp vào đây để đăng ký</a>"; 
+    echo "Bạn chưa đăng nhập! <br><a href='login.php'>Nhấp vào đây để đăng nhập</a> <br>hoặc <a href='register.php'>Nhấp vào đây để đăng ký</a>"; 
 }
 else
 {
@@ -17,6 +17,7 @@ else
     echo "<br><a href='suathongtin.php'>Sửa thông tin</a>";
 	echo "<br><a href='../quanly/quanlygiangday.php'>Quản lý giảng dạy</a>";
     if ($member['keya']=="1")  echo "<br><a href='admin.php'>Trang quản trị</a>";
+	if ($member['keya']=="1")  echo "<br><a href='kt.php'>Trang quản trị</a>";
     echo "<br><a href='logout.php'>Thoát ra</a>";
 } 
 ?>

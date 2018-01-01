@@ -1,8 +1,8 @@
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <title>Quản lý giảng dạy </title>
-	  <?php 
+      <title>Quản lý và phân quyền người dùng </title>
+<?php 
 session_start();
 header('Content-Type: text/html; charset=UTF-8');
 require_once("config.php"); 
@@ -66,9 +66,6 @@ else
                  $query = "DELETE FROM users WHERE id='$id'";
                  mysql_query($query);
              }
-
-			 
-			
             if ($cmd == 'Xóa') { 
              // Nếu click nút Xóa
                  if ($chonxoa != 'off') {					 // Nếu ô checkbox đã được lựa chọn
@@ -78,9 +75,8 @@ else
 						 }else echo 'Không được xóa admin gốc';
                      }
                      getData(); // Gọi hàm để lấy dữ liệu và hiển thị sau khi xóa bản ghi
-                 }	}
-				 
-      
+                 }	
+		}
     }
 } 
 ?>
@@ -111,7 +107,6 @@ if(isset($_GET['edit']) & $edit_id = $_GET['edit']){
 		    $key_new = $_POST['u_key'];
 		    $password; 
 			$update_users = "update users set keya='$key_new' where id='$update_id'";
-			
 			$run_update = mysql_query($update_users);
 			
 			if($run_update)
@@ -126,13 +121,15 @@ if(isset($_GET['edit']) & $edit_id = $_GET['edit']){
 		    <tr>
 			<td><b>Username: &nbsp</b><input type='text' name='u_name' value='<?php echo $username?>'/></td>
 			</tr>
-			<tr>
-			<td><b>Password: &nbsp &nbsp</b><input type='password' name='u_pass' value='<?php echo $password?>'/></td>
-			</tr>
-		    <tr>
-			<td><b>Sửa quyền: &nbsp</b><input type='text' name='u_key' value='<?php echo $quyen?>'/></td>
-			</tr>
 			
+		    <tr>
+			<td><b>Sửa quyền: &nbsp</b>
+			<select name="u_key">
+			<option <?php if($quyen==1) echo "selected=\"selected\""?> value="1" >Admin</option>
+			<option <?php if($quyen==0) echo "selected=\"selected\""?> value="0">User</option>
+			</select>
+			</tr>
+			 
 			<tr>
 			<td><input type='submit' name='update' value='Update User'/></td>
 			</tr>
@@ -146,14 +143,12 @@ if(isset($_GET['edit']) & $edit_id = $_GET['edit']){
 
                      <tr align="center">
                         <td colspan="2">
-                          
                            <input type="submit" value="Xóa" name="in" onClick="return confirm('Bạn có thực sự muốn xóa')">
                         </td>
                         <td>&nbsp;</td>
                      </tr>
                   </table>
             </td>
-           
          </tr>
 		  <tr> 
 		   <td>
@@ -168,8 +163,8 @@ if(isset($_GET['edit']) & $edit_id = $_GET['edit']){
             <td>Quyền</td>
 			<td>Sửa quyền</td>
 			<td>Chọn xóa</td>
-			
             </tr> 
+			
             <?php
                global $giatri;
                echo $giatri;

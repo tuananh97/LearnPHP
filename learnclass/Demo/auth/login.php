@@ -2,7 +2,7 @@
 
 session_start();
 header('Content-Type: text/html; charset=UTF-8');
-echo '<title>Dang ki/Dang Nhap)</title>';
+echo '<title>Đăng nhập hệ thống</title>';
 // Tải file mysql.php lên
 require_once("config.php");
 if ($_GET['act'] == "do" )
@@ -36,9 +36,22 @@ else
 // Form đăng nhập
 print <<<EOF
 <form action="login.php?act=do" method="post">
-Tên truy nhập: <input type="text" name="username" value="">
-Mật khẩu: <input type="password" name="password" value="">
-<input type="submit" name="submit" value="Đăng nhập">
+<fieldset>
+	    <legend><b>ĐĂNG NHẬP</b></legend>
+		<table>
+	    		<tr>
+	    			<td>Tên đăng nhập</td>
+	    			<td><input type="text" name="username" value=""></td>
+	    		</tr>
+	    		<tr>
+	    			<td>Mật khẩu</td>
+	    			<td><input type="password" name="password" value=""></td>
+	    		</tr>
+	    		<tr>
+	    			<td colspan="2" align="center"> <input type="submit" name="submit" value="Đăng nhập"></td>
+	    		</tr>
+	    	</table>
+</fieldset>
 </form>
 EOF;
 }

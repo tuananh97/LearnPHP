@@ -1,7 +1,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Dang ky/dang Nhap</title>
+<title>Đăng ký tài khoản</title>
 <?php
 require_once("config.php");
+function Chuanhoa($str, $type = NULL)
+        {
+            $str   = mb_strtolower($str, 'UTF-8'); //Chuyển về chữ thường
+            $str   = trim($str);  //Lược bỏ khoảng trắng đầu và cuối chuỗi
+            $array = explode(" ", $str); //Lược bỏ khoảng trắng thừa giữa các từ
+            foreach ($array as $key => $value)
+                {
+                    if (trim($value) == null)
+                        {
+                            unset($array[$key]);
+                            continue;
+                        }
+                    if ($type == "ten")  //Chuyển kí tự đầu mỗi từ thành chữ hoa
+                        {
+                            $array[$key] = ucfirst($value);
+                        }
+                }
+				//Chuyển kí tự đầu thành chữ hoa
+            $result = implode(" ", $array);
+            return $result;
+        }
 //Kiem tra email co hop le hay ko
 function check_email($email) {
     if (strlen($email) == 0) return false;
@@ -15,10 +36,8 @@ if ( $_GET['act'] == "do" )
     $password = md5( addslashes( $_POST['password'] ) );
     $verify_password = md5( addslashes( $_POST['verify_password'] ) );
     $email = addslashes( $_POST['email'] );
-    $ten = addslashes( $_POST['name'] );
+    $ten = Chuanhoa(addslashes( $_POST['name']),"ten");
     $sinhnhat = addslashes( $_POST['sn'] );
-    
-	
     // Kiểm tra 7 thông tin, nếu có bất kỳ thông tin chưa điền thì sẽ báo lỗi
     if ( ! $username || ! $_POST['password'] || ! $_POST['verify_password'] || ! $email || ! $ten || ! $sinhnhat || ! $ten)
     {
@@ -67,8 +86,10 @@ else
 // Form đăng ký
 print <<<EOF
 <form action="register.php?act=do" method="post">
-    <table border="2" width="400" cellspacing="1" style="border-collapse: collapse" bordercolor="#C0C0C0">
-        <tr>
+<fieldset>
+<legend><b>ĐĂNG KÍ TÀI KHOẢN</b></legend> 
+    <table >
+	   <tr>
             <td>Tên truy nhập:</td>
             <td><input type="text" name="username" value=""></td>
         </tr>
@@ -86,18 +107,20 @@ print <<<EOF
         </tr>
 
         <tr>
-            <td>Tên:</td>
+            <td>Họ và tên:</td>
             <td><input type="text" name="name" value=""></td>
         </tr>
         <tr>
-            <td>Ngày sinh (dd/mm/yyyy):</td>
+            <td>Ngày sinh(dd/mm/yyyy):</td>
             <td><input type="text" name="sn" value=""></td>
         </tr>
         <tr>
             <td><input type="submit" name="submit" value="Đăng ký tài khoản"></td>
             
         </tr>
+
     </table>
+	</fieldset>		
 </form>
 EOF;
 }

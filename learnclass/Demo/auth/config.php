@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));  
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 $db_host = "localhost"; 
 $db_name    = 'demofe';
 $db_username    = 'root'; 

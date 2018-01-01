@@ -133,10 +133,8 @@
 				 </td>
                      </tr>
                      <tr>
-                         
                         <td width="30%">Ngày bắt đầu:</td>
                         <td><input type="text" name="ngaybatdau" /></td>
-                     
                      </tr>
                      <tr align="center">
                         <td colspan="2">

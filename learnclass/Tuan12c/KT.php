@@ -1,4 +1,4 @@
-<html>
+﻿<html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <title>Quản lý giảng dạy </title>
@@ -26,7 +26,7 @@
                   <td>" . $ketqua[$i]['tengiangvien'] . "</td>
 			       <td> ".$ngay." </td>
 				  <td><input type='checkbox' name='chonxoa[]' value=" . $i . " /></td>
-                  <td><a href='sua.php?monhocID=". $ketqua[$i]['monhocID'] . "&giangvienID=". $ketqua[$i]['giangvienID'] . "'> Sửa </a></td>
+                  <td><a href='suagiangday.php?monhocID=". $ketqua[$i]['monhocID'] . "&giangvienID=". $ketqua[$i]['giangvienID'] . "'> Sửa </a></td>
                   </tr>
                   ";
                  }
@@ -59,9 +59,6 @@
                  $query = "DELETE FROM giangday WHERE monhocID='" . $monhoc . "' AND giangvienID='" . $giangvien . "' AND ngaybatdau='" . $ngaybatdau . "'";
                  mysql_query($query);
              }
-			 
-			 
-	
              if ($cmd == 'Thêm') { // Nếu click nút Xoa
                  insertData($giangvien,$monhoc,$ngaybatdau); // Thêm bản ghi vào bảng hoivien
                  getData(); // Gọi lại hàm để lấy dữ liệu và hiển thị sau khi thêm bản ghi

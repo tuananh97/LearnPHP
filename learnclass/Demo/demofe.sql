@@ -121,7 +121,7 @@ ALTER TABLE `giangday`
 --
 ALTER TABLE `giangvien`
   ADD PRIMARY KEY (`giangvienID`);
-
+<input type='text' name='u_key' value='<?php echo $quyen?>'/></td>
 --
 -- Chỉ mục cho bảng `monhoc`
 --
