@@ -1,10 +1,11 @@
-<html>
+﻿<html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <title>QUản lý giảng dạy </title>
+      <title>Quản lý giảng dạy </title>
       <?php
          //Kêt nối CSDL
-             mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
+             $conn=mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
+			 mysql_set_charset('utf8',$conn);
              mysql_select_db("tuan12") or die("Lỗi kết nối Database");
 
          // Hàm lấy dữ liệu từ CSDL và hiển thị
@@ -17,14 +18,15 @@
                  $numrows = mysql_num_rows($result);
                  for ($i = 0; $i < $numrows; $i ++) {
                      $ketqua[$i] = mysql_fetch_array($result);
+					 $ngay =date("d/m/Y",strtotime($ketqua[$i]['ngaybatdau']));
                      $giatri .= "
                   <tr>
                   <td>" . ($i + 1) . "</td>
                   <td>" . $ketqua[$i]['tenmonhoc'] . "</td>
                   <td>" . $ketqua[$i]['tengiangvien'] . "</td>
-			       <td>" . $ketqua[$i]['ngaybatdau'] . "</td>
+			       <td> ".$ngay." </td>
 				  <td><input type='checkbox' name='chonxoa[]' value=" . $i . " /></td>
-                  <td><a href='sua.php?monhocID=". $monhoc . "''> Sửa </a></td>
+                  <td><a href='sua.php?monhocID=". $ketqua[$i]['monhocID'] . "&giangvienID=". $ketqua[$i]['giangvienID'] . "'> Sửa </a></td>
                   </tr>
                   ";
                  }
@@ -52,19 +54,11 @@
              }
          
             // Hàm Delete bản ghi
-             function deleteData($monhoc,$giangvien)
+             function deleteData($monhoc,$giangvien,$ngaybatdau)
              {
-                 $query = "DELETE FROM giangday WHERE monhocID='" . $monhoc . "' AND giangvienID='" . $giangvien . "'";
+                 $query = "DELETE FROM giangday WHERE monhocID='" . $monhoc . "' AND giangvienID='" . $giangvien . "' AND ngaybatdau='" . $ngaybatdau . "'";
                  mysql_query($query);
              }
-			 
-			 $chonsua = isset($_REQUEST['chonsua']) ? $_REQUEST['chonsua'] : 'off';
-			 if ($chonsua != 'off') {	 
-			  for ($i = 0; $i < count($chonsua); $i ++) {
-                        updateData($ketqua[$chonsua[$i]]['monhocID']);
-                     }
-			 } 
-	
              if ($cmd == 'Thêm') { // Nếu click nút Xoa
                  insertData($giangvien,$monhoc,$ngaybatdau); // Thêm bản ghi vào bảng hoivien
                  getData(); // Gọi lại hàm để lấy dữ liệu và hiển thị sau khi thêm bản ghi
@@ -73,7 +67,7 @@
                  if ($chonxoa != 'off') {					 // Nếu ô checkbox đã được lựa chọn
                      for ($i = 0; $i < count($chonxoa); $i ++) {
          
-                         deleteData($ketqua[$chonxoa[$i]]['monhocID'],$ketqua[$chonxoa[$i]]['giangvienID']);
+                         deleteData($ketqua[$chonxoa[$i]]['monhocID'],$ketqua[$chonxoa[$i]]['giangvienID'],$ketqua[$chonxoa[$i]]['ngaybatdau']);
                          // Xóa bản ghi
                      }
                      getData(); // Gọi hàm để lấy dữ liệu và hiển thị sau khi xóa bản ghi
@@ -86,7 +80,7 @@
          <h1>Quản lý giảng dạy</h1>
       </center>
       <table align="center" >
-         <tr>
+         <tr align="center">
             <td>
                <form name="form" method="POST">
                   <table>
@@ -146,7 +140,10 @@
                      </tr>
                   </table>
             </td>
-            <td>
+           
+         </tr>
+		  <tr> 
+		   <td>
             <table align="center" border="1px">
             <tr>
             <td>STT</td>
@@ -162,8 +159,24 @@
              ?>	
             </table>					
             </td> 
-         </tr>
-		
+		 </tr>
+		  <tr> 
+		   <td>
+            <table align="center" border="1px">
+            <tr>
+            <td>STT</td>
+            <td>Môn học</td>
+			<td>Giảng viên</td>
+			<td>Ngày bắt đầu</td>
+			<td>Chọn xóa</td>
+            <td>Chọn sửa</td>
+            </tr> 
+            <?php
+               
+             ?>	
+            </table>					
+            </td> 
+		 </tr>
       </table>
    </body>
 </html>

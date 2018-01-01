@@ -6,7 +6,7 @@
          //Kêt nối CSDL
              mysql_connect("localhost", "root", "") or die("Lỗi kết nối Server");
              mysql_select_db("hoivien") or die("Lỗi kết nối Database");
-                         		// Hàm tach ho dem	 
+          // Hàm tach ho dem	 
 		  function Tachten($name){
 	      $mangten = explode(" ",$name);
 		  $sophantu = count($mangten);
